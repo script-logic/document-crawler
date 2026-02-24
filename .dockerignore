@@ -1,0 +1,65 @@
+# standart
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.env
+.env.*
+.pytest_cache/
+.vscode/
+tree.py
+celerybeat-schedule
+scripts
+
+# pytest
+.pytest_cache/
+.cache/
+start_dev.ps1
+scripts
+test.db
+
+# coverage
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+*.py,cover
+
+# test logs
+pytest.xml
+test-results/
+*.log
+
+# Git
+.git
+.gitignore
+
+# Docker
+.dockerignore
+Dockerfile
+Dockerfile.dockerignore
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+.env
+.env.local
+.env.*.local
+scan_project.py
+project_scan_output.txt
+
+# IDEs
+.vscode/
+.idea/
+.ruff_cache
+
+# OS-specific
+*.DS_Store
+Thumbs.db

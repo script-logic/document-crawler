@@ -1,0 +1,45 @@
+uploads/*
+scripts
+*.drawio
+warehouse.db
+scan_project.py
+project_scan_output.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*.class
+*.so
+.Python
+env/
+venv/
+.env
+.venv
+poetry.lock
+.pytest_cache/
+.coverage
+htmlcov/
+.coverage.*
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Project specific
+data/storage/*
+!data/storage/.gitkeep
+data/output/*
+!data/output/.gitkeep
+logs/*
+!logs/.gitkeep
+*.db
+*.db-journal
+.data_hashes.json
+
+# Poetry
+poetry.toml
