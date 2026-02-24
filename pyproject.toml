@@ -19,6 +19,7 @@ openpyxl = ">=3.1.5,<4.0.0"
 pandas = ">=2.2.0,<3.0.0"
 patool = ">=3.0.2,<4.0.0"
 python-magic-bin = ">=0.4.14,<0.5.0"
+reportlab = "^4.4.10"
 
 
 [tool.poetry.group.dev.dependencies]

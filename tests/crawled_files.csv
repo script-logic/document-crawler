@@ -1,0 +1,205 @@
+path,relative_path,file_name,file_size,file_hash,doc_type,extension,extraction_success,extraction_error,modified_time,crawled_at,is_from_archive,archive_path,is_virtual,text_preview
+test_archive.zip:test_archive.zip/archive_test_0.txt,test_archive.zip/archive_test_0.txt,archive_test_0.txt,35,7e9cb10f9406bef9952f3aec28ee661b20a1b68f805df58e12f15225e6eb43d2,txt,txt,True,,2026-02-25T02:04:34.134658,2026-02-25T02:04:34.134659,True,data\storage\test_archive.zip,True,"This is test file 0
+Line 2
+Line 3"
+test_archive.zip:test_archive.zip/archive_test_1.txt,test_archive.zip/archive_test_1.txt,archive_test_1.txt,35,a158794ebd57ff8eb1782497d9703ddb0048e13f2bf72ddba769face7937c416,txt,txt,True,,2026-02-25T02:04:34.139912,2026-02-25T02:04:34.139913,True,data\storage\test_archive.zip,True,"This is test file 1
+Line 2
+Line 3"
+test_archive.zip:test_archive.zip/archive_test_2.txt,test_archive.zip/archive_test_2.txt,archive_test_2.txt,35,e4ac966c3e6e0e3d8deb389c43ab2a1010deb87051bbb9bebe916680b4125653,txt,txt,True,,2026-02-25T02:04:34.144375,2026-02-25T02:04:34.144377,True,data\storage\test_archive.zip,True,"This is test file 2
+Line 2
+Line 3"
+data\storage\examples\sample_1.txt,examples\sample_1.txt,sample_1.txt,162,c86417399a028f75023ca8c346404468897d40bb7b14e8418cf664a5d7d58ed1,txt,txt,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.162635,False,,False,"Sample text file 1
+Generated at: 2026-02-24 22:52:17.728383
+hmxcONMZPKBUrJzaSmWbwMbsKNzmfWRwvFjwVRfgXZPMSHRpfSiBwEpeyNjGBEjHmGvwveAxyCpnvJmMKRUaArNOOlCjKUMLgobh"
+data\storage\examples\sample_2.txt,examples\sample_2.txt,sample_2.txt,162,8700aa043d55f61a87f55eefe6d4d15ad16cdfd9c4444d786810cdd527d96f3a,txt,txt,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.164560,False,,False,"Sample text file 2
+Generated at: 2026-02-24 22:52:17.730920
+MqVObaZWVdQzxgpUTVLbRIBkYuYeLGxdswqVXCUNPMkYMiGmpWwSFPqCMdjiqDlrHktTOvojctdrsxfIuNSVtHjPDxINmaTFzLmX"
+data\storage\examples\sample_3.txt,examples\sample_3.txt,sample_3.txt,162,9b8730b205a32a51a9fa31846816d795eee5ccd13845f549e21a508b9992091c,txt,txt,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.166210,False,,False,"Sample text file 3
+Generated at: 2026-02-24 22:52:17.733204
+ZaJHQlvPHXCUvveBQVGcGrmalfvLlSJLYScMKxzQqoktOxtBcyMDUTkNzunIfPHaPFpvrDrXJFzmPEpvvXTHlvyItNmBRjSBsNeN"
+data\storage\examples\sample_4.txt,examples\sample_4.txt,sample_4.txt,162,8bbf81eaf2971bc8aa867f1485721c5d064c1aba807e51120bb15d6f776891ff,txt,txt,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.168078,False,,False,"Sample text file 4
+Generated at: 2026-02-24 22:52:17.735464
+YwTZvczwLohEveESDTfEztopPcmaVFRRjDLywIvKqyzkdkSlqzsVMLxPRtPWVijeYFyIDthGQVLkKbVoChFYyWTIefRjmPNOKdfx"
+data\storage\examples\sample_5.txt,examples\sample_5.txt,sample_5.txt,162,612c050868821e314d171bebb8ce3a4e84421032545c6949d914c376f3562a13,txt,txt,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.169789,False,,False,"Sample text file 5
+Generated at: 2026-02-24 22:52:17.738467
+yeaaqQoFYgHJioNOKHaKUItdmPOmWRQRcuBoyvnbjkRNOgtQTNEGkPROGAEtRdDvVvgGgKKqDtPjIdQJJwtXKHIFvODhqzNKneHX"
+data\storage\examples\sample_1.md,examples\sample_1.md,sample_1.md,188,6f1e373b9e869c03892277e3429c86dd15b056e4b065f340a12dbade1769458b,markdown,md,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.171604,False,,False,"# Sample Markdown 1
+
+Generated at: 2026-02-24 22:52:17.741313
+
+## Section 1
+Lorem ipsum dolor sit amet.
+
+## Section 2
+Consectetur adipiscing elit.
+
+- List item 1
+- List item 1"
+data\storage\examples\sample_2.md,examples\sample_2.md,sample_2.md,188,6c04d4ff4ca8947549ec3c36d8dc0de5d0b3dfab6d6623267028c70099095a6c,markdown,md,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.173396,False,,False,"# Sample Markdown 2
+
+Generated at: 2026-02-24 22:52:17.743870
+
+## Section 1
+Lorem ipsum dolor sit amet.
+
+## Section 2
+Consectetur adipiscing elit.
+
+- List item 1
+- List item 2"
+data\storage\examples\sample_3.md,examples\sample_3.md,sample_3.md,188,03a65a2cb1f430eb80da984c0bb80ca4426f940f15f6edd97b9126403650f521,markdown,md,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.175193,False,,False,"# Sample Markdown 3
+
+Generated at: 2026-02-24 22:52:17.746496
+
+## Section 1
+Lorem ipsum dolor sit amet.
+
+## Section 2
+Consectetur adipiscing elit.
+
+- List item 1
+- List item 3"
+data\storage\examples\sample_4.md,examples\sample_4.md,sample_4.md,188,eaa80b50d485b875997d871beb72616b1a237759fbc15b99bc2ecd992151dac7,markdown,md,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.176978,False,,False,"# Sample Markdown 4
+
+Generated at: 2026-02-24 22:52:17.749222
+
+## Section 1
+Lorem ipsum dolor sit amet.
+
+## Section 2
+Consectetur adipiscing elit.
+
+- List item 1
+- List item 4"
+data\storage\examples\sample_5.md,examples\sample_5.md,sample_5.md,188,1aa3f8d202e9000b6551a9960d9c01f7ef453312245932f3ff44a7bbd33ec73a,markdown,md,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.178825,False,,False,"# Sample Markdown 5
+
+Generated at: 2026-02-24 22:52:17.751708
+
+## Section 1
+Lorem ipsum dolor sit amet.
+
+## Section 2
+Consectetur adipiscing elit.
+
+- List item 1
+- List item 5"
+data\storage\examples\sample_1.json,examples\sample_1.json,sample_1.json,149,5074dffdfe518e63ffd53bf63ae986b1fe2c327b80eeb39a6bf3ff0bd1512e94,json,json,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.180642,False,,False,"{
+  ""id"": 1,
+  ""name"": ""Sample 1"",
+  ""timestamp"": ""2026-02-24T22:52:17.754586"",
+  ""values"": [
+    28,
+    11,
+    94,
+    97,
+    49
+  ]
+}"
+data\storage\examples\sample_2.json,examples\sample_2.json,sample_2.json,149,07950df2af743c49cd9632b80a75f2e6bbc6efb11725d90731c99a662c6532cc,json,json,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.182467,False,,False,"{
+  ""id"": 2,
+  ""name"": ""Sample 2"",
+  ""timestamp"": ""2026-02-24T22:52:17.757734"",
+  ""values"": [
+    91,
+    79,
+    11,
+    70,
+    39
+  ]
+}"
+data\storage\examples\sample_3.json,examples\sample_3.json,sample_3.json,149,5aa16e4f5b2dd0a983e7f81c0c515622a88fc29196ce5820da9a764627a8d89e,json,json,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.184300,False,,False,"{
+  ""id"": 3,
+  ""name"": ""Sample 3"",
+  ""timestamp"": ""2026-02-24T22:52:17.760570"",
+  ""values"": [
+    61,
+    11,
+    87,
+    99,
+    27
+  ]
+}"
+data\storage\examples\sample_4.json,examples\sample_4.json,sample_4.json,148,0a6c5b996cec54575922c06ec83d8a06ce6fd3e938d8f43bf97af75888f4f48b,json,json,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.186103,False,,False,"{
+  ""id"": 4,
+  ""name"": ""Sample 4"",
+  ""timestamp"": ""2026-02-24T22:52:17.763131"",
+  ""values"": [
+    26,
+    48,
+    56,
+    8,
+    91
+  ]
+}"
+data\storage\examples\sample_5.json,examples\sample_5.json,sample_5.json,149,6c3e659e166d48bd46c443dcd60f891fc717a4a15dc05fbd98fbd4ee088b9816,json,json,True,,2026-02-24T22:52:18,2026-02-25T02:04:34.187915,False,,False,"{
+  ""id"": 5,
+  ""name"": ""Sample 5"",
+  ""timestamp"": ""2026-02-24T22:52:17.765516"",
+  ""values"": [
+    42,
+    30,
+    61,
+    98,
+    49
+  ]
+}"
+data\storage\examples\sample_1.pdf,examples\sample_1.pdf,sample_1.pdf,1408,350c7f5a4edd1cab31623b9231ffdf31735b88469769e4c1bdb1ca17957a1399,pdf,pdf,True,,2026-02-24T22:52:20,2026-02-25T02:04:34.191432,False,,False,"Sample PDF 1
+Generated at: 2026-02-24 22:52:18.382182"
+data\storage\examples\sample_2.pdf,examples\sample_2.pdf,sample_2.pdf,1408,c5d6e67eb4a6de98f13467797ac34cb9a7c239ffece2a4d405299d4cd6e3faf3,pdf,pdf,True,,2026-02-24T22:52:20,2026-02-25T02:04:34.194281,False,,False,"Sample PDF 2
+Generated at: 2026-02-24 22:52:18.402416"
+data\storage\examples\sample_3.pdf,examples\sample_3.pdf,sample_3.pdf,1408,2ee4778b38a3918c5376a81cceb64a3e08cf3b5a3ddd62c2d9af6eb14cb6ec60,pdf,pdf,True,,2026-02-24T22:52:20,2026-02-25T02:04:34.197036,False,,False,"Sample PDF 3
+Generated at: 2026-02-24 22:52:18.420851"
+data\storage\examples\sample_4.pdf,examples\sample_4.pdf,sample_4.pdf,1410,1a7e85792308a08565f544b4179854c3ab2d3cd18b7780c28b94c72d5a93b23a,pdf,pdf,True,,2026-02-24T22:52:20,2026-02-25T02:04:34.199968,False,,False,"Sample PDF 4
+Generated at: 2026-02-24 22:52:18.439015"
+data\storage\examples\sample_5.pdf,examples\sample_5.pdf,sample_5.pdf,1410,cb31630756b8b21a6917fecc303d85ca4d5560532ad34a99ebf9c0b22f992824,pdf,pdf,True,,2026-02-24T22:52:20,2026-02-25T02:04:34.202804,False,,False,"Sample PDF 5
+Generated at: 2026-02-24 22:52:18.457595"
+data\storage\examples\sample_1.docx,examples\sample_1.docx,sample_1.docx,36670,d6a2764405ce9c2fd830808fa4c46b67e163cc48d774daf49efc9c52afaf98d9,docx,docx,True,,2026-02-24T22:52:20,2026-02-25T02:04:34.222829,False,,False,"Sample DOCX 1
+Generated at: 2026-02-24 22:52:18.492197
+Lorem ipsum dolor sit amet."
+data\storage\examples\sample_2.docx,examples\sample_2.docx,sample_2.docx,36669,485eb7929d554ed05d1322c4152b56cd75c30ce42b83dc89c9525fd1006b13cb,docx,docx,True,,2026-02-24T22:52:20,2026-02-25T02:04:34.242258,False,,False,"Sample DOCX 2
+Generated at: 2026-02-24 22:52:18.538411
+Lorem ipsum dolor sit amet."
+data\storage\examples\sample_3.docx,examples\sample_3.docx,sample_3.docx,36670,4d8dc9a44afcbac93134ed96866e1b6d8ff2b2c54a03d07b1fd2ac2b76ea9f84,docx,docx,True,,2026-02-24T22:52:20,2026-02-25T02:04:34.258092,False,,False,"Sample DOCX 3
+Generated at: 2026-02-24 22:52:18.584782
+Lorem ipsum dolor sit amet."
+data\storage\examples\sample_4.docx,examples\sample_4.docx,sample_4.docx,36669,f48697325bbb16d050a7e79ec941899c20a4685b5add748baabe884f8485bc42,docx,docx,True,,2026-02-24T22:52:20,2026-02-25T02:04:34.273466,False,,False,"Sample DOCX 4
+Generated at: 2026-02-24 22:52:18.630188
+Lorem ipsum dolor sit amet."
+data\storage\examples\sample_5.docx,examples\sample_5.docx,sample_5.docx,36668,edd362682cc7f4a103a2c90259f7207b7d98184f9006d4be96e06bad2b70d011,docx,docx,True,,2026-02-24T22:52:20,2026-02-25T02:04:34.289204,False,,False,"Sample DOCX 5
+Generated at: 2026-02-24 22:52:18.675725
+Lorem ipsum dolor sit amet."
+data\storage\examples\sample_1.xlsx,examples\sample_1.xlsx,sample_1.xlsx,5043,85bb04e350d66776ff23d20a7002dd5a4e847edce7693891053aaa6fd2866760,xlsx,xlsx,True,,2026-02-24T22:52:24,2026-02-25T02:04:34.297010,False,,False,"--- Sheet: Sheet1 ---
+ID | Value | Text
+1 | 81 | A
+2 | 7 | B
+3 | 94 | C
+4 | 13 | D
+5 | 57 | E"
+data\storage\examples\sample_2.xlsx,examples\sample_2.xlsx,sample_2.xlsx,5043,ac5dfad36c524a7e4264bf6ab7d96ee9edfd26116697e4a36516cfdf37841e4e,xlsx,xlsx,True,,2026-02-24T22:52:24,2026-02-25T02:04:34.303629,False,,False,"--- Sheet: Sheet1 ---
+ID | Value | Text
+1 | 62 | A
+2 | 17 | B
+3 | 87 | C
+4 | 34 | D
+5 | 97 | E"
+data\storage\examples\sample_3.xlsx,examples\sample_3.xlsx,sample_3.xlsx,5044,ca7560f9e8de4052a9b4d37cd93c1fb5c617c4af2ff245bb7e25ea86ca7ac66f,xlsx,xlsx,True,,2026-02-24T22:52:24,2026-02-25T02:04:34.310578,False,,False,"--- Sheet: Sheet1 ---
+ID | Value | Text
+1 | 72 | A
+2 | 40 | B
+3 | 28 | C
+4 | 46 | D
+5 | 74 | E"
+data\storage\examples\sample_4.xlsx,examples\sample_4.xlsx,sample_4.xlsx,5041,473400206a6e28a92eeddbddc5e9c748ab9135195879d85289b3bb9c98c394d5,xlsx,xlsx,True,,2026-02-24T22:52:24,2026-02-25T02:04:34.331343,False,,False,"--- Sheet: Sheet1 ---
+ID | Value | Text
+1 | 41 | A
+2 | 44 | B
+3 | 70 | C
+4 | 80 | D
+5 | 3 | E"
+data\storage\examples\sample_5.xlsx,examples\sample_5.xlsx,sample_5.xlsx,5044,1763eaeb1e06307c7dcf0d1cfa98b8cc183405624b5d2341364cda5be23a576b,xlsx,xlsx,True,,2026-02-24T22:52:24,2026-02-25T02:04:34.341233,False,,False,"--- Sheet: Sheet1 ---
+ID | Value | Text
+1 | 53 | A
+2 | 42 | B
+3 | 25 | C
+4 | 68 | D
+5 | 13 | E"

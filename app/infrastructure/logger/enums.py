@@ -2,12 +2,14 @@ import logging
 from enum import Enum, StrEnum
 
 
-class LoggersToHijack(Enum):  # TODO
+class LoggersToHijack(Enum):
+    SQLALCHEMY = ("sqlalchemy", logging.WARNING)
     SQLALCHEMY_ENGINE = ("sqlalchemy.engine", logging.WARNING)
     SQLALCHEMY_POOL = ("sqlalchemy.pool", logging.WARNING)
     URLLIB = ("urllib3", logging.WARNING)
     MATPLOTLIB = ("matplotlib", logging.WARNING)
     PIL = ("PIL", logging.WARNING)
+    PATOOL = ("patool", logging.WARNING)
 
     @property
     def logger_name(self) -> str:

@@ -21,3 +21,6 @@ COPY pyproject.toml poetry.lock* ./
 
 RUN useradd -m -u 1000 appuser && \
     chown -R appuser:appuser /app
+
+ENTRYPOINT ["python", "run_crawler.py"]
+CMD ["crawl"]
