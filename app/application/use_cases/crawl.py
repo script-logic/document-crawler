@@ -20,7 +20,7 @@ from app.infrastructure.crawler import (
     PatoolArchiveExtractor,
 )
 from app.infrastructure.database import DocumentRepository
-from app.infrastructure.parsers import ParseError, ParserFactory
+from app.infrastructure.parsers import ParserFactory
 
 logger = get_logger(__name__)
 
@@ -166,7 +166,7 @@ class CrawlUseCase:
         archive_rel_path: str,
     ) -> Document | None:
         """
-        Create document directly from bytes without temporary file.
+        Create document directly from bytes.
 
         Args:
             file_name: Original file name from archive.
@@ -187,25 +187,32 @@ class CrawlUseCase:
                 tmp_path = Path(tmp_file.name)
 
             try:
-                doc = self.crawler.crawl_file(tmp_path)
+                try:
+                    doc = self.crawler.crawl_file(tmp_path)
+                except Exception as e:
+                    logger.error(
+                        "Failed to crawl file extracted from archive",
+                        file=file_name,
+                        archive=archive_path,
+                        error=str(e),
+                    )
+                    self.stats["files_failed"] += 1
+                    return None
+
+                if not doc:
+                    logger.debug(
+                        "Crawler returned None for extracted file",
+                        file=file_name,
+                        archive=archive_path,
+                    )
+                    return None
 
                 if doc:
                     virtual_file_path = Path(virtual_path)
 
-                    parser = self.crawler.parser_factory.get_parser_for_file(
-                        virtual_file_path
-                    )
-
-                    text_content = None
-                    extraction_success = False
-                    extraction_error = None
-
-                    if parser:
-                        try:
-                            text_content = parser.parse(tmp_path)
-                            extraction_success = True
-                        except ParseError as e:
-                            extraction_error = str(e)
+                    extraction_success = doc.extraction_success
+                    text_content = doc.text_content
+                    extraction_error = doc.extraction_error
 
                     return Document(
                         path=virtual_file_path,

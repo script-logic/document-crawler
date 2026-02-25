@@ -8,14 +8,16 @@ from pathlib import Path
 
 from pydantic import BaseModel, Field, field_validator
 
-from app.domain.value_objects.file_hash import FileHash
+from app.domain.value_objects import FileHash
 
 
 class DocumentType(StrEnum):
     """Supported document types."""
 
     PDF = auto()
+    DOC = auto()
     DOCX = auto()
+    XLS = auto()
     XLSX = auto()
     TXT = auto()
     MD = "markdown"
@@ -38,7 +40,9 @@ class DocumentType(StrEnum):
         ext = ext.lower().lstrip(".")
         mapping = {
             "pdf": cls.PDF,
+            "doc": cls.DOC,
             "docx": cls.DOCX,
+            "xls": cls.XLS,
             "xlsx": cls.XLSX,
             "txt": cls.TXT,
             "md": cls.MD,

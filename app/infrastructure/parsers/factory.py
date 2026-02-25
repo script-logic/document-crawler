@@ -8,10 +8,12 @@ from structlog import get_logger
 
 from app.domain.entities import DocumentType
 
+from .doc_parser import DOCParser
 from .docx_parser import DOCXParser
 from .interfaces import Parser
 from .pdf_parser import PDFParser
 from .txt_parser import TextParser
+from .xls_parser import XLSParser
 from .xlsx_parser import XLSXParser
 
 logger = get_logger(__name__)
@@ -34,8 +36,10 @@ class ParserFactory:
         """Register all available parsers."""
         parsers: list[Parser] = [
             PDFParser(),
+            DOCParser(),
             DOCXParser(),
             XLSXParser(),
+            XLSParser(),
             TextParser(),
         ]
 

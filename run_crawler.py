@@ -161,6 +161,30 @@ Consectetur adipiscing elit.
         logger.info("reportlab not installed, skipping PDF generation")
 
     try:
+        import xlwt  # pyright: ignore[reportMissingTypeStubs]
+
+        logger.info("Generating XLS samples...")
+        for i in range(count):
+            workbook = xlwt.Workbook(encoding="utf-8")
+            sheet = workbook.add_sheet("Sheet1")  # type: ignore
+            sheet.write(0, 0, f"Sample XLS {i + 1}")  # type: ignore
+            sheet.write(  # type: ignore
+                1,
+                0,
+                f"Generated at: {datetime.now()}",
+            )
+            for j in range(5):
+                sheet.write(j + 2, 0, f"Value {j}")  # type: ignore
+                sheet.write(j + 2, 1, j * 100)  # type: ignore
+
+            output_path = output_dir / f"sample_{i + 1}.xls"
+            workbook.save(str(output_path))  # type: ignore
+            logger.debug(f"Generated {output_path}")
+
+    except ImportError:
+        logger.warning("xlwt not installed, skipping XLS generation")
+
+    try:
         from docx import Document
 
         for i in range(count):
