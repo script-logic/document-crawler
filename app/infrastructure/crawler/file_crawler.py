@@ -2,6 +2,7 @@
 File system crawler implementation.
 """
 
+import fnmatch
 import os
 from collections.abc import Iterator
 from datetime import datetime
@@ -33,6 +34,7 @@ class FileSystemScanner:
         skip_hidden: bool = True,
         follow_symlinks: bool = False,
         max_depth: int | None = None,
+        ignore_patterns: list[str] | None = None,
     ) -> None:
         """
         Initialize scanner.
@@ -45,6 +47,15 @@ class FileSystemScanner:
         self.skip_hidden = skip_hidden
         self.follow_symlinks = follow_symlinks
         self.max_depth = max_depth
+        self.ignore_patterns = ignore_patterns or [".gitkeep", "*.tmp", "~*"]
+
+    def _matches_pattern(self, file_path: Path) -> bool:
+        """Check if file matches any ignore pattern."""
+        name = file_path.name
+        for pattern in self.ignore_patterns:
+            if fnmatch.fnmatch(name, pattern):
+                return True
+        return False
 
     def _is_hidden(self, path: Path) -> bool:
         """Check if file or directory is hidden."""
@@ -103,6 +114,10 @@ class FileSystemScanner:
 
             for file_name in files:
                 file_path = current_path / file_name
+
+                if self._matches_pattern(file_path):
+                    skipped_count += 1
+                    continue
 
                 if self.skip_hidden and self._is_hidden(file_path):
                     skipped_count += 1
