@@ -5,6 +5,8 @@ services:
     volumes:
       - ./data:/app/data
       - ./db:/app/db
+    environment:
+      - DATABASE__PATH=/app/${DATABASE__PATH}
     env_file:
       - .env
     command: crawl
