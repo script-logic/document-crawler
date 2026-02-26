@@ -5,6 +5,7 @@ Document entity representing a crawled file.
 from datetime import datetime
 from enum import StrEnum, auto
 from pathlib import Path
+from typing import Any
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -115,11 +116,45 @@ class Document(BaseModel):
         description="Whether file is virtual (from archive, not on disk)",
     )
 
+    def __init__(self, **data: Any):
+        if "path" in data and "relative_path" not in data:
+            data["relative_path"] = str(data["path"]).replace("\\", "/")
+
+        if "relative_path" in data:
+            data["path"] = data["relative_path"]
+
+        super().__init__(**data)
+
     @field_validator("path", mode="before")
     @classmethod
-    def validate_path(cls, v: Path | str) -> Path:
-        """Ensure path is Path object."""
-        return Path(v) if isinstance(v, str) else v
+    def validate_path(cls, v: Path | str) -> str:
+        """Convert path to string and normalize."""
+        if isinstance(v, Path):
+            v = str(v)
+        return v.replace("\\", "/")
+
+    @field_validator("relative_path", mode="after")
+    @classmethod
+    def normalize_relative_path(cls, v: str) -> str:
+        """
+        Normalize path separators to POSIX style (/).
+        This ensures consistency between Windows and Linux.
+        """
+        if not v:
+            return v
+
+        normalized = v.replace("\\", "/")
+
+        if ".." in normalized.split("/"):
+            raise ValueError(f"Path traversal detected: {v}")
+
+        return normalized
+
+    @field_validator("path", mode="after")
+    @classmethod
+    def normalize_path(cls, v: Path) -> Path:
+        """Ensure path uses forward slashes."""
+        return Path(str(v).replace("\\", "/"))
 
     @field_validator("file_size")
     @classmethod

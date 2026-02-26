@@ -45,7 +45,7 @@ class DocumentRepository:
         """Convert domain Document to ORM model."""
         return DocumentModel(
             id=document.id,
-            path=str(document.path),
+            path=str(document.path).replace("\\", "/"),
             relative_path=document.relative_path,
             file_name=document.file_name,
             file_size=document.file_size,
@@ -83,6 +83,86 @@ class DocumentRepository:
             is_from_archive=model.is_from_archive,
             archive_path=model.archive_path,
         )
+
+    def upsert(self, document: Document) -> Document:
+        """Insert or replace document based on path."""
+        session: Session = self.Session()
+
+        try:
+            existing = (
+                session.query(DocumentModel)
+                .filter(DocumentModel.path == str(document.path))
+                .first()
+            )
+
+            model = self._to_model(document)
+
+            if existing:
+                model.id = existing.id
+                merged = session.merge(model)
+            else:
+                session.add(model)
+                session.flush()
+                merged = model
+
+            session.commit()
+
+            if merged.id:
+                session.refresh(merged)
+
+            return self._to_domain(merged)
+
+        except Exception as e:
+            session.rollback()
+            logger.error(f"Failed to upsert document: {e}")
+            raise
+        finally:
+            session.close()
+
+    def upsert_many(self, documents: list[Document]) -> list[Document]:
+        """
+        Bulk upsert multiple documents - update if exists, insert if not.
+        """
+        if not documents:
+            return []
+
+        session: Session = self.Session()
+        saved_documents: list[Document] = []
+
+        try:
+            for doc in documents:
+                path_str = str(doc.path).replace("\\", "/")
+
+                existing = (
+                    session.query(DocumentModel)
+                    .filter(DocumentModel.path == path_str)
+                    .first()
+                )
+
+                model = self._to_model(doc)
+
+                if existing:
+                    model.id = existing.id
+                    merged = session.merge(model)
+                    session.flush()
+                    saved_documents.append(self._to_domain(merged))
+                else:
+                    session.add(model)
+                    session.flush()
+                    saved_documents.append(self._to_domain(model))
+
+            session.commit()
+            logger.info(f"Upserted {len(saved_documents)} documents")
+            return saved_documents
+
+        except Exception as e:
+            session.rollback()
+            logger.error(f"Failed to upsert documents: {e}")
+            if documents:
+                logger.error(f"First document path: {documents[0].path}")
+            raise
+        finally:
+            session.close()
 
     def save(self, document: Document) -> Document:
         """
@@ -167,9 +247,11 @@ class DocumentRepository:
         session: Session = self.Session()
 
         try:
+            search_path = str(path).replace("\\", "/")
+
             model = (
                 session.query(DocumentModel)
-                .filter(DocumentModel.path == str(path))
+                .filter(DocumentModel.path == search_path)
                 .first()
             )
             return self._to_domain(model) if model else None
@@ -195,9 +277,11 @@ class DocumentRepository:
         session: Session = self.Session()
 
         try:
+            search_path = str(path).replace("\\", "/")
+
             count = (
                 session.query(DocumentModel)
-                .filter(DocumentModel.path == str(path))
+                .filter(DocumentModel.path == search_path)
                 .count()
             )
             return count > 0

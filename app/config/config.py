@@ -89,7 +89,7 @@ class DatabaseConfig(BaseSettings):
     """Configuration for database."""
 
     path: Path = Field(
-        default=Path("crawler.db"),
+        default=Path("db/crawler.db"),
         description="Path to SQLite database file",
     )
     fts_enabled: bool = Field(

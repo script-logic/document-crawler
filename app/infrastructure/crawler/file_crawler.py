@@ -159,10 +159,13 @@ class FileCrawler:
         """Get path relative to storage root."""
         if self.storage_root:
             try:
-                return str(file_path.relative_to(self.storage_root))
+                rel_path = str(file_path.relative_to(self.storage_root))
             except ValueError:
-                return str(file_path.absolute())
-        return str(file_path.absolute())
+                rel_path = file_path.name
+        else:
+            rel_path = file_path.name
+
+        return rel_path.replace("\\", "/")
 
     def _check_file_size(self, file_path: Path) -> None:
         """Check if file exceeds size limit."""
@@ -176,6 +179,7 @@ class FileCrawler:
     def _create_document(
         self,
         file_path: Path,
+        relative_path: str,
         text_content: str | None = None,
         extraction_success: bool = False,
         extraction_error: str | None = None,
@@ -231,8 +235,8 @@ class FileCrawler:
             doc_type = DocumentType.from_extension(file_path.suffix)
 
             return Document(
-                path=file_path,
-                relative_path=self._get_relative_path(file_path),
+                path=relative_path,
+                relative_path=relative_path,
                 file_name=file_path.name,
                 file_size=file_size,
                 file_hash=file_hash_val,
@@ -282,6 +286,7 @@ class FileCrawler:
         Returns:
             Document entity or None if file cannot be processed or is archive.
         """
+        rel_path = self._get_relative_path(file_path)
         logger.debug(f"Crawling file: {file_path}")
 
         if self.is_archive(file_path):
@@ -297,6 +302,7 @@ class FileCrawler:
             logger.warning(f"File too large: {file_path}")
             return self._create_document(
                 file_path,
+                relative_path=rel_path,
                 extraction_error=str(e),
             )
 
@@ -305,6 +311,7 @@ class FileCrawler:
             logger.debug(f"No parser for file: {file_path}")
             return self._create_document(
                 file_path,
+                relative_path=rel_path,
                 extraction_error="No parser available",
             )
 
@@ -312,6 +319,7 @@ class FileCrawler:
             text_content = parser.parse(file_path)
             return self._create_document(
                 file_path,
+                relative_path=rel_path,
                 text_content=text_content,
                 extraction_success=True,
             )
@@ -320,6 +328,7 @@ class FileCrawler:
             logger.warning(f"Failed to parse {file_path}: {e}")
             return self._create_document(
                 file_path,
+                relative_path=rel_path,
                 extraction_error=str(e),
             )
 

@@ -4,8 +4,7 @@ services:
     container_name: document-crawler
     volumes:
       - ./data:/app/data
-      - ./crawler.db:/app/crawler.db
+      - ./db:/app/db
     env_file:
       - .env
     command: crawl
-    restart: unless-stopped

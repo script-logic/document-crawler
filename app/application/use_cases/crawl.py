@@ -215,7 +215,7 @@ class CrawlUseCase:
                     extraction_error = doc.extraction_error
 
                     return Document(
-                        path=virtual_file_path,
+                        path=virtual_path,
                         relative_path=virtual_path,
                         file_name=file_name,
                         file_size=len(contents),
@@ -229,7 +229,7 @@ class CrawlUseCase:
                         modified_time=datetime.now(),
                         crawled_at=datetime.now(),
                         is_from_archive=True,
-                        archive_path=str(archive_path),
+                        archive_path=str(archive_path).replace("\\", "/"),
                         is_virtual=True,
                     )
                 return None
@@ -378,7 +378,7 @@ class CrawlUseCase:
                     })
 
                 if len(documents) >= 100:
-                    self.repository.save_many(documents)
+                    self.repository.upsert_many(documents)
                     documents.clear()
 
                 if limit and processed_count >= limit:
@@ -386,7 +386,7 @@ class CrawlUseCase:
                     break
 
             if documents:
-                self.repository.save_many(documents)
+                self.repository.upsert_many(documents)
 
         self.stats["end_time"] = datetime.now()
         self.stats["files_processed"] = processed_count
