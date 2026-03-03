@@ -10,7 +10,7 @@ from app.domain.entities import DocumentType
 
 from .doc_parser import DOCParser
 from .docx_parser import DOCXParser
-from .interfaces import Parser
+from .interfaces import BaseParserFactory, Parser
 from .pdf_parser import PDFParser
 from .txt_parser import TextParser
 from .xls_parser import XLSParser
@@ -19,7 +19,7 @@ from .xlsx_parser import XLSXParser
 logger = get_logger(__name__)
 
 
-class ParserFactory:
+class ParserFactory(BaseParserFactory):
     """
     Factory that provides appropriate parsers for document types.
 
@@ -99,22 +99,3 @@ class ParserFactory:
             logger.debug(f"No parser registered for extension: .{ext}")
 
         return parser
-
-    def register_parser(self, parser: Parser) -> None:
-        """
-        Register a new parser dynamically.
-
-        Args:
-            parser: Parser instance to register.
-        """
-        if hasattr(parser, "DOCUMENT_TYPE"):
-            doc_type = parser.DOCUMENT_TYPE
-            if doc_type:
-                self._parsers_by_type[doc_type] = parser
-
-        if hasattr(parser, "SUPPORTED_EXTENSIONS"):
-            extensions = parser.SUPPORTED_EXTENSIONS
-            for ext in extensions:
-                self._parsers_by_ext[ext] = parser
-
-        logger.info(f"Registered new parser: {parser.__class__.__name__}")

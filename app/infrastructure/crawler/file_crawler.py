@@ -12,7 +12,7 @@ from structlog import get_logger
 
 from app.domain.entities import Document, DocumentType
 from app.domain.value_objects import FileHash
-from app.infrastructure.parsers import ParseError, ParserFactory
+from app.infrastructure.parsers import BaseParserFactory, ParseError
 
 from .interfaces import (
     ArchiveExtractor,
@@ -147,7 +147,7 @@ class FileCrawler:
 
     def __init__(
         self,
-        parser_factory: ParserFactory,
+        parser_factory: BaseParserFactory,
         scanner: FileScanner | None = None,
         archive_extractor: ArchiveExtractor | None = None,
         max_file_size_mb: int = 100,
@@ -346,51 +346,6 @@ class FileCrawler:
                 relative_path=rel_path,
                 extraction_error=str(e),
             )
-
-    def crawl_directory(self, root_path: Path) -> Iterator[Document]:
-        """
-        Crawl entire directory, processing all files.
-
-        Args:
-            root_path: Root directory to crawl.
-
-        Yields:
-            Document entities for each processed file.
-        """
-        logger.info(f"Starting directory crawl: {root_path}")
-
-        processed = 0
-        failed = 0
-
-        for file_path in self.scanner.scan(root_path):
-            try:
-                doc = self.crawl_file(file_path)
-                if doc:
-                    yield doc
-                    processed += 1
-                else:
-                    failed += 1
-
-                if (processed + failed) % 100 == 0:
-                    logger.info(
-                        "Crawl progress",
-                        processed=processed,
-                        failed=failed,
-                        total=processed + failed,
-                    )
-
-            except Exception as e:
-                logger.exception(
-                    f"Unexpected error processing {file_path}",
-                    error=str(e),
-                )
-                failed += 1
-
-        logger.info(
-            "Crawl complete",
-            processed=processed,
-            failed=failed,
-        )
 
     def scan_directory(self, root_path: Path) -> Iterator[Path]:
         """

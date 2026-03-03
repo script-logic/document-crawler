@@ -78,7 +78,7 @@ class ParseError(Exception):
         super().__init__(f"Failed to parse {file_path}: {message}")
 
 
-class ParserFactory(ABC):
+class BaseParserFactory(ABC):
     """Factory for creating appropriate parsers."""
 
     @abstractmethod

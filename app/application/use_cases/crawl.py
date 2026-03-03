@@ -21,6 +21,7 @@ from app.infrastructure.crawler import (
 )
 from app.infrastructure.database import DocumentRepository
 from app.infrastructure.parsers import ParserFactory
+from app.infrastructure.parsers.interfaces import BaseParserFactory
 
 logger = get_logger(__name__)
 
@@ -39,6 +40,8 @@ class CrawlUseCase:
         config: AppConfig,
         repository: DocumentRepository | None = None,
         crawler: FileCrawler | None = None,
+        parser_factory: BaseParserFactory | None = None,
+        archive_extractor: ArchiveExtractor | None = None,
     ) -> None:
         """
         Initialize crawl use case.
@@ -54,17 +57,20 @@ class CrawlUseCase:
             config.database.path
         )
 
-        parser_factory = ParserFactory()
+        self.parser_factory = parser_factory or ParserFactory()
 
-        archive_extractor = None
+        self.archive_extractor = None
         if config.crawler.extract_archives:
-            archive_extractor = PatoolArchiveExtractor(
-                max_depth=config.crawler.max_archive_depth,
+            self.archive_extractor = (
+                archive_extractor
+                or PatoolArchiveExtractor(
+                    max_depth=config.crawler.max_archive_depth,
+                )
             )
 
         self.crawler = crawler or FileCrawler(
-            parser_factory=parser_factory,
-            archive_extractor=archive_extractor,
+            parser_factory=self.parser_factory,
+            archive_extractor=self.archive_extractor,
             max_file_size_mb=config.crawler.max_file_size_mb,
             storage_root=config.crawler.storage_path,
         )
@@ -81,26 +87,40 @@ class CrawlUseCase:
 
     def _should_process(self, file_path: Path) -> bool:
         """
-        Check if file should be processed (not already in DB with same hash).
-
-        Args:
-            file_path: Path to file.
+        Check if file should be processed.
 
         Returns:
             True if file should be processed, False if it can be skipped.
         """
-        existing = self.repository.get_by_path(file_path)
+        existing_by_path = self.repository.get_by_path(file_path)
 
-        if not existing:
+        if not existing_by_path:
             return True
 
         try:
             current_mtime = datetime.fromtimestamp(file_path.stat().st_mtime)
-            if existing.modified_time < current_mtime:
+            if existing_by_path.modified_time < current_mtime:
                 logger.debug(f"File modified, reprocessing: {file_path}")
                 return True
-        except OSError:
+        except OSError as e:
+            logger.warning(f"Cannot access file {file_path}: {e}")
             return True
+
+        current_hash = FileHash(file_path)
+
+        if existing_by_path.file_hash != current_hash:
+            logger.debug(f"File content changed, reprocessing: {file_path}")
+            return True
+
+        existing_by_hash = self.repository.get_by_hash(current_hash)
+        if existing_by_hash and existing_by_hash.path != file_path:
+            logger.warning(
+                f"Duplicate content found:\n"
+                f"  New: {file_path}\n"
+                f"  Existing: {existing_by_hash.path}\n"
+                f"  Hash: {current_hash}"
+            )
+            return False
 
         logger.debug(f"File unchanged, skipping: {file_path}")
         return False
@@ -141,7 +161,6 @@ class CrawlUseCase:
                     virtual_path=virtual_path,
                     contents=contents,
                     archive_path=str(archive_path),
-                    archive_rel_path=archive_rel_path,
                 )
 
                 if doc:
@@ -163,7 +182,6 @@ class CrawlUseCase:
         virtual_path: str,
         contents: bytes,
         archive_path: str,
-        archive_rel_path: str,
     ) -> Document | None:
         """
         Create document directly from bytes.
@@ -173,7 +191,6 @@ class CrawlUseCase:
             virtual_path: Virtual path (archive_name/path/inside/archive).
             contents: File contents as bytes.
             archive_path: Full path to archive file.
-            archive_rel_path: Archive path relative to storage.
 
         Returns:
             Document entity or None if creation fails.

@@ -84,41 +84,6 @@ class DocumentRepository:
             archive_path=model.archive_path,
         )
 
-    def upsert(self, document: Document) -> Document:
-        """Insert or replace document based on path."""
-        session: Session = self.Session()
-
-        try:
-            existing = (
-                session.query(DocumentModel)
-                .filter(DocumentModel.path == str(document.path))
-                .first()
-            )
-
-            model = self._to_model(document)
-
-            if existing:
-                model.id = existing.id
-                merged = session.merge(model)
-            else:
-                session.add(model)
-                session.flush()
-                merged = model
-
-            session.commit()
-
-            if merged.id:
-                session.refresh(merged)
-
-            return self._to_domain(merged)
-
-        except Exception as e:
-            session.rollback()
-            logger.error(f"Failed to upsert document: {e}")
-            raise
-        finally:
-            session.close()
-
     def upsert_many(self, documents: list[Document]) -> list[Document]:
         """
         Bulk upsert multiple documents - update if exists, insert if not.
@@ -190,44 +155,6 @@ class DocumentRepository:
         except Exception as e:
             session.rollback()
             logger.error(f"Failed to save document: {e}")
-            raise
-        finally:
-            session.close()
-
-    def save_many(self, documents: list[Document]) -> list[Document]:
-        """
-        Bulk save multiple documents.
-
-        Args:
-            documents: List of document entities.
-
-        Returns:
-            List of saved documents with IDs.
-        """
-        if not documents:
-            return []
-
-        session: Session = self.Session()
-        saved_documents: list[Document] = []
-
-        try:
-            for doc in documents:
-                model = self._to_model(doc)
-                merged = session.merge(model)
-
-                session.flush()
-
-                saved_doc = self._to_domain(merged)
-                saved_documents.append(saved_doc)
-
-            session.commit()
-
-            logger.info(f"Saved {len(saved_documents)} documents")
-            return saved_documents
-
-        except Exception as e:
-            session.rollback()
-            logger.error(f"Failed to save documents: {e}")
             raise
         finally:
             session.close()
@@ -337,28 +264,6 @@ class DocumentRepository:
             )
 
             return documents
-
-        finally:
-            session.close()
-
-    def search_by_type(
-        self,
-        doc_type: DocumentType,
-        limit: int = 100,
-    ) -> list[Document]:
-        """Search documents by type."""
-        session: Session = self.Session()
-
-        try:
-            models = (
-                session.query(DocumentModel)
-                .filter(DocumentModel.doc_type == doc_type.value)
-                .order_by(DocumentModel.crawled_at.desc())
-                .limit(limit)
-                .all()
-            )
-
-            return [self._to_domain(m) for m in models]
 
         finally:
             session.close()

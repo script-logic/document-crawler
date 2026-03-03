@@ -1,4 +1,5 @@
-from typing import Any, Callable, Literal, overload
+from collections.abc import Callable
+from typing import Any, Literal, overload
 
 import orjson
 import structlog
@@ -19,7 +20,7 @@ class RendererFactory(BaseLoggerFactory[ILogProcessor], metaclass=Singleton):
         name: Literal[RendererNames.CONSOLE],
         *,
         colors: bool = ...,
-        pad_event_to: int = ...
+        pad_event_to: int = ...,
     ) -> ILogProcessor: ...
 
     @overload

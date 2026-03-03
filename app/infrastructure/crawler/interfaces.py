@@ -79,13 +79,3 @@ class FileTooLargeError(CrawlerError):
             f"File too large: {size} bytes > {limit} bytes",
             path=path,
         )
-
-
-class UnsupportedFileTypeError(CrawlerError):
-    """Raised when file type is not supported."""
-
-    def __init__(self, path: Path, reason: str = "") -> None:
-        msg = "Unsupported file type"
-        if reason:
-            msg += f": {reason}"
-        super().__init__(msg, path=path)

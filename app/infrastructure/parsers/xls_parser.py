@@ -1,4 +1,3 @@
-# app/infrastructure/parsers/xls_parser.py
 """
 Legacy XLS parser using xlrd.
 """

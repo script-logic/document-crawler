@@ -2,13 +2,12 @@
 Search use case: Full-text search across crawled documents.
 """
 
-from pathlib import Path
 from typing import Any
 
 from structlog import get_logger
 
 from app.config import AppConfig
-from app.domain.entities import Document, DocumentType
+from app.domain.entities import DocumentType
 from app.infrastructure.database import DocumentRepository
 
 logger = get_logger(__name__)
@@ -104,14 +103,6 @@ class SearchUseCase:
 
         logger.info(f"Found {len(results)} results")
         return result
-
-    def get_document(self, doc_id: int) -> Document | None:
-        """Get full document by ID."""
-        return self.repository.get_by_id(doc_id)
-
-    def get_document_by_path(self, path: Path) -> Document | None:
-        """Get document by file path."""
-        return self.repository.get_by_path(path)
 
     def get_stats(self) -> dict[str, Any]:
         """Get search statistics."""

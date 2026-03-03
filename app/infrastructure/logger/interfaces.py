@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from logging import Handler
 from pathlib import Path
-from typing import Any, Generic, Protocol, Type, TypeVar
+from typing import Any, Generic, Protocol, TypeVar
 
 from structlog.types import EventDict, Processor, WrappedLogger
 from structlog.typing import ProcessorReturnValue
@@ -41,14 +41,14 @@ class BaseProcessorStrategy(ABC):
 
 class BaseLoggerFactory(ABC, Generic[T]):
     def __init__(self) -> None:
-        self._blueprints: dict[str, Type[T]] = {}
+        self._blueprints: dict[str, type[T]] = {}
 
-    def register(self, name: str, item_blueprint: Type[T]):
+    def register(self, name: str, item_blueprint: type[T]):
         if name in self._blueprints:
             raise ValueError(f"Blueprint '{name}' is already registered")
         self._blueprints[name] = item_blueprint
 
-    def get_blueprint(self, name: str) -> Type[T]:
+    def get_blueprint(self, name: str) -> type[T]:
         if name not in self._blueprints:
             raise ValueError(f"Blueprint '{name}' not registered")
         return self._blueprints[name]

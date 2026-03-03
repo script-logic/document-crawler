@@ -37,7 +37,7 @@ class LoggerManager(metaclass=Singleton):
         formatter_wrapper = self.processor_builder.build_formatter_wrapper()
 
         structlog.configure(
-            processors=shared_processors + [formatter_wrapper],
+            processors=[*shared_processors, formatter_wrapper],
             logger_factory=structlog.stdlib.LoggerFactory(),
             wrapper_class=structlog.stdlib.BoundLogger,
             cache_logger_on_first_use=True,

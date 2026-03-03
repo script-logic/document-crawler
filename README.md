@@ -58,7 +58,7 @@ Extracts text from various formats, handles nested archives, and provides powerf
 |--------|--------|--------------|-------|
 | PDF | ✅ | PyPDF2 | Text extraction from all pages |
 | DOCX | ✅ | python-docx | Paragraphs and tables |
-| DOC | ⚠️ | antiword/catdoc | Not tested. Requires external utilities* |
+| DOC | ⚠️ | antiword/catdoc | Not tested. Not applicable in Docker. Requires external utilities* |
 | XLSX | ✅ | openpyxl | All sheets and cells |
 | XLS | ✅ | xlrd | Legacy Excel format |
 | TXT | ✅ | built-in | Auto-encoding detection |
@@ -67,8 +67,8 @@ Extracts text from various formats, handles nested archives, and provides powerf
 | XML | ✅ | TextParser | XML as plain text |
 | HTML | ✅ | TextParser | HTML as plain text |
 | ZIP | ✅ | patool | Nested archives supported |
-| RAR | ⚠️ | patool + unrar | Requires external unrar* |
-| 7Z | ⚠️ | patool + p7zip | Requires external p7zip* |
+| RAR | ⚠️ | patool + unrar | Requires external unrar* or use via docker |
+| 7Z | ⚠️ | patool + p7zip | Requires external p7zip* or use via docker |
 
 *\*External utilities need to be installed separately in the system (see [External Dependencies](#external-dependencies-english))*.
 
@@ -257,7 +257,7 @@ Some formats require system-level utilities:
 | **7Z archives** | `p7zip` | **Windows**: Install 7-Zip<br>**Linux**: `sudo apt-get install p7zip-full`<br>**macOS**: `brew install p7zip` |
 | **DOC files** | `antiword` or `catdoc` | **Windows**: https://github.com/rsdoiel/antiword<br>**Linux**: `sudo apt-get install antiword`<br>**macOS**: `brew install antiword` |
 
-> **Note**: These are external executables, not Python packages. They must be installed in your system PATH. TPlease note: these external tools may not be available on your system even after following the installation instructions above.
+> **Note**: These are external executables, not Python packages. They must be installed in your system PATH. Please note: these external tools may not be available on your system even after following the installation instructions above.
 
 ---
 
@@ -372,7 +372,7 @@ MIT License - feel free to use and modify.
 |--------|--------|-------------------|------------|
 | PDF | ✅ | PyPDF2 | Извлечение текста со всех страниц |
 | DOCX | ✅ | python-docx | Параграфы и таблицы |
-| DOC | ⚠️ | antiword/catdoc | Не протестировано. Требует внешние утилиты* |
+| DOC | ⚠️ | antiword/catdoc | Не протестировано. Не используется в docker. Требует внешние утилиты* |
 | XLSX | ✅ | openpyxl | Все листы и ячейки |
 | XLS | ✅ | xlrd | Старый формат Excel |
 | TXT | ✅ | встроенный | Автоопределение кодировки |
@@ -381,8 +381,8 @@ MIT License - feel free to use and modify.
 | XML | ✅ | TextParser | XML как plain text |
 | HTML | ✅ | TextParser | HTML как plain text |
 | ZIP | ✅ | patool | Поддержка вложенных архивов |
-| RAR | ⚠️ | patool + unrar | Требует внешний unrar* |
-| 7Z | ⚠️ | patool + p7zip | Требует внешний p7zip* |
+| RAR | ⚠️ | patool + unrar | Требует внешний unrar* или используйте docker |
+| 7Z | ⚠️ | patool + p7zip | Требует внешний p7zip* или используйте docker |
 
 *\*Внешние утилиты устанавливаются отдельно в систему (см. [Внешние зависимости](#внешние-зависимости-russian))*.
 
